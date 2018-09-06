@@ -16,12 +16,13 @@ App = React.createClass({
             loading: true
         });
 
-        this.getGif(searchingText, function(gif){
-            this.setState({
-                loading: false,
-                gif: gif,
-                searchingText: searchingText
-            });
+        this.getGif(searchingText) 
+        .then(gif => {
+            this.setState({  
+                loading: false,  
+                gif: gif,  
+                searchingText: searchingText  
+            }),
         }.bind(this));
     },
 
@@ -33,7 +34,7 @@ App = React.createClass({
                 xhr.open('GET', url);
                 xhr.onload = function() {
                     if (xhr.status === 200) {
-                        var data = JSON.parse(xhr.responseText).data; // 4.
+                        var data = JSON.parse(xhr.responseText).data; 
                         var gif = {  
                             url: data.fixed_width_downsampled_url,
                             sourceUrl: data.url
